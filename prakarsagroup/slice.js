@@ -17,9 +17,18 @@ const studentSlice = createSlice({
       action.payload.id = max;
       state.student.push(action.payload);
     },
+    edit: (state, action) => {
+      const { id, name, date } = action.payload;
+      for (let i = 0; i < state.student.length; i++) {
+        if (state.student[i].id == id) {
+          state.student[i].name = name;
+          state.student[i].date = date;
+        }
+      }
+    },
     decrement: (state) => state.student - 1,
   },
 });
 
-export const { increment, decrement, add } = studentSlice.actions;
+export const { increment, decrement, add, edit } = studentSlice.actions;
 export default studentSlice.reducer;

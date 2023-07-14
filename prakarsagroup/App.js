@@ -11,6 +11,7 @@ import AddStudentScreen from "./screens/AddStudentScreen";
 import EditStudentScreen from "./screens/EditStudentScreen";
 import AddCourseScreen from "./screens/AddCourseScreen";
 import { Provider } from "react-redux";
+import EditCourseScreen from "./screens/EditCourseScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -68,6 +69,11 @@ const CourseStack = () => {
       <Stack.Screen
         name="AddCourse"
         component={AddCourseScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditCourse"
+        component={EditCourseScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

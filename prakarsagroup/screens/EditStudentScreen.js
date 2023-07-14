@@ -14,7 +14,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { increment, decrement, add } from "../slice";
+import { increment, decrement, add, edit } from "../slice";
 import { useSelector, useDispatch } from "react-redux";
 const EditStudentScreen = ({ navigation, route }) => {
   const { student } = useSelector((state) => state.student);
@@ -24,14 +24,15 @@ const EditStudentScreen = ({ navigation, route }) => {
     // Implement the logic to navigate back
     navigation.goBack();
   };
-  const handleAddStudent = () => {
+  const handleEditStudent = () => {
     // Implement the logic to navigate back
     console.log(name);
     console.log(date.toLocaleDateString());
-    dispatch(add({ id: 1, name: name, date: date.toLocaleDateString() }));
+    dispatch(edit({ id: id, name: name, date: date.toLocaleDateString() }));
     navigation.goBack();
   };
 
+  const [id, setId] = useState();
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
   const [vdate, vsetDate] = useState("");
@@ -50,7 +51,8 @@ const EditStudentScreen = ({ navigation, route }) => {
     const data = route.params;
     setName(data.name);
     vsetDate(data.date);
-  }, [name]);
+    setId(data.id);
+  }, []);
 
   return (
     <SafeAreaView>
@@ -81,7 +83,7 @@ const EditStudentScreen = ({ navigation, route }) => {
               onChange={onChange}
             />
           </View>
-          <Button onPress={handleAddStudent} title="Safe" />
+          <Button onPress={handleEditStudent} title="Safe" />
         </View>
       </View>
     </SafeAreaView>

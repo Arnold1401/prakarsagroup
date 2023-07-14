@@ -1,5 +1,5 @@
 // DetailScreen.js
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,33 +11,23 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-native-paper";
+import { add } from ".././courses";
+import { useSelector, useDispatch } from "react-redux";
 const AddCourseScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState();
   const handleBackPress = () => {
     // Implement the logic to navigate back
     navigation.goBack();
   };
 
-  const data = [
-    { id: "1", title: "Item 1" },
-    { id: "2", title: "Item 2" },
-    { id: "3", title: "Item 3" },
-    // ... more items
-  ];
+  const arr = [];
 
-  const handleAddStudent = () => {
-    // Implement the logic to navigate back
-    console.log(date.toLocaleDateString());
-    dispatch(add({ id: 1, name: name, date: date.toLocaleDateString() }));
+  const handleAddCourse = () => {
+    dispatch(add({ id: 1, name: name }));
     navigation.goBack();
   };
 
-  const renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text>{item.title}</Text>
-      </View>
-    );
-  };
   return (
     <SafeAreaView>
       <View>
@@ -50,10 +40,15 @@ const AddCourseScreen = ({ navigation }) => {
         <Text>Course Screen</Text>
         <View>
           <Text>Course Name :</Text>
-          <TextInput style={{ borderWidth: 1, borderColor: "black" }} />
-          <Text>Students :</Text>
-          <TextInput style={{ borderWidth: 1, borderColor: "black" }} />
-          <Button>Safe</Button>
+          <TextInput
+            style={{ borderWidth: 1, borderColor: "black" }}
+            value={name}
+            onChangeText={(e) => {
+              setName(e);
+            }}
+          />
+
+          <Button onPress={handleAddCourse}> Safe</Button>
         </View>
       </View>
     </SafeAreaView>

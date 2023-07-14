@@ -8,11 +8,22 @@ import {
   FlatList,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faPlus,
+  faPencilAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
 
 const CourseScreen = ({ navigation }) => {
+  const { course } = useSelector((state) => state.course);
   const handleBackPress = () => {
     navigation.goBack();
+  };
+
+  const handleEditCourse = (test) => {
+    navigation.navigate("EditCourse", test);
+    console.log(test);
   };
 
   const handlePlusPress = () => {
@@ -20,17 +31,18 @@ const CourseScreen = ({ navigation }) => {
     navigation.navigate("AddCourse");
   };
 
-  const data = [
-    { id: "1", title: "Item 1" },
-    { id: "2", title: "Item 2" },
-    { id: "3", title: "Item 3" },
-    // ... more items
-  ];
-
   const renderItem = ({ item }) => {
     return (
-      <View>
-        <Text>{item.title}</Text>
+      <View style={styles.card}>
+        <Text>{item.name}</Text>
+
+        <TouchableOpacity
+          onPress={(e) => {
+            handleEditCourse(item);
+          }}
+        >
+          <FontAwesomeIcon icon={faPencilAlt} size={24} />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -49,7 +61,7 @@ const CourseScreen = ({ navigation }) => {
         </View>
         <Text>Course Screen</Text>
         <FlatList
-          data={data}
+          data={course}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -76,6 +88,15 @@ const styles = {
   backIcon: {
     fontSize: 18,
     marginRight: 8,
+  },
+  card: {
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 };
 
