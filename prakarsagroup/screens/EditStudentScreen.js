@@ -34,6 +34,7 @@ const EditStudentScreen = ({ navigation, route }) => {
 
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
+  const [vdate, vsetDate] = useState("");
   const [showPicker, setShowPicker] = useState(true);
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -48,21 +49,7 @@ const EditStudentScreen = ({ navigation, route }) => {
   useEffect(() => {
     const data = route.params;
     setName(data.name);
-
-    const dateParts = data.date.split("/");
-    const month = parseInt(dateParts[0], 10);
-    const day = parseInt(dateParts[1], 10);
-    const year = parseInt(dateParts[2], 10);
-    const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
-      "en-GB",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }
-    );
-
-    setDate(formattedDate);
+    vsetDate(data.date);
   }, [name]);
 
   return (
@@ -85,6 +72,7 @@ const EditStudentScreen = ({ navigation, route }) => {
             }}
           />
           <Text>Date Of Birth :</Text>
+          <Text>{vdate}</Text>
           <View>
             <DateTimePicker
               value={date}

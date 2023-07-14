@@ -28,12 +28,12 @@ const AddStudentScreen = ({ navigation }) => {
     // Implement the logic to navigate back
     console.log(name);
     console.log(date.toLocaleDateString());
-    dispatch(add({ id: 1, name: name, date: date }));
+    dispatch(add({ id: 1, name: name, date: date.toLocaleDateString() }));
     navigation.goBack();
   };
 
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;

@@ -24,6 +24,13 @@ const AddCourseScreen = ({ navigation }) => {
     // ... more items
   ];
 
+  const handleAddStudent = () => {
+    // Implement the logic to navigate back
+    console.log(date.toLocaleDateString());
+    dispatch(add({ id: 1, name: name, date: date.toLocaleDateString() }));
+    navigation.goBack();
+  };
+
   const renderItem = ({ item }) => {
     return (
       <View>
