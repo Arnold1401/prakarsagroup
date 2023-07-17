@@ -83,6 +83,7 @@ const EditStudentScreen = ({ navigation, route }) => {
               onChange={onChange}
             />
           </View>
+
           <Button onPress={handleEditStudent} title="Safe" />
         </View>
       </View>

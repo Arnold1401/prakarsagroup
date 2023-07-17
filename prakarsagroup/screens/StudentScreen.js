@@ -38,6 +38,7 @@ const StudentScreen = ({ navigation }) => {
     return (
       <View style={styles.card}>
         <Text>{item.name}</Text>
+        <Text>{2023 - Number(item.date.split("/")[2])}</Text>
 
         <TouchableOpacity
           onPress={(e) => {

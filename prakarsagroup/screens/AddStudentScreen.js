@@ -54,7 +54,6 @@ const AddStudentScreen = ({ navigation }) => {
           </TouchableOpacity>
           <Text style={styles.appBarTitle}>Add Student Screen</Text>
         </View>
-        <Text>Student Screen</Text>
         <View>
           <Text>Student Name :</Text>
           <TextInput

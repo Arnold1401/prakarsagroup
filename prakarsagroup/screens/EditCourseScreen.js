@@ -27,7 +27,7 @@ const EditCourseScreen = ({ navigation, route }) => {
   const handleEditStudent = () => {
     // Implement the logic to navigate back
     console.log(name);
-    dispatch(edit({ id: id, name: name }));
+    dispatch(edit({ id: id, name: name, students: arr }));
     navigation.goBack();
   };
 
@@ -44,12 +44,49 @@ const EditCourseScreen = ({ navigation, route }) => {
     setShowPicker(true);
   };
 
+  const [arr, setArr] = useState([]);
+
   useEffect(() => {
     const data = route.params;
     setName(data.name);
     setId(data.id);
+    setArr(data.students);
   }, []);
 
+  console.log(arr);
+
+  const renderItem = ({ item }) => {
+    const isMatch = arr.some((arrItem) => arrItem.id === item.id);
+
+    return (
+      <View style={[styles.card, isMatch && styles.cardnone]}>
+        <Text>{item.name}</Text>
+        <TouchableOpacity
+          onPress={(e) => {
+            let match = false;
+            let idx = item.id;
+            if (arr.length > 0) {
+              for (let i = 0; i < arr.length; i++) {
+                if (arr[i].id === item.id) {
+                  match = true;
+                }
+              }
+            }
+            if (!match) {
+              const newArray = [...arr, item];
+              setArr(newArray);
+            } else {
+              console.log("hapus murid");
+              const updatedArr = arr.filter((el) => el.id !== idx);
+              setArr(updatedArr);
+            }
+          }}
+        >
+          {isMatch ? <Text>-</Text> : <Text>+</Text>}
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <SafeAreaView>
       <View>
@@ -69,7 +106,11 @@ const EditCourseScreen = ({ navigation, route }) => {
               setName(e);
             }}
           />
-
+          <FlatList
+            data={student}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
           <Button onPress={handleEditStudent} title="Safe" />
         </View>
       </View>
@@ -94,6 +135,15 @@ const styles = {
   backIcon: {
     fontSize: 18,
     marginRight: 8,
+  },
+  card: {
+    borderWidth: 1,
+    padding: 2,
+  },
+  cardnone: {
+    borderWidth: 1,
+    backgroundColor: "green",
+    padding: 2,
   },
 };
 
